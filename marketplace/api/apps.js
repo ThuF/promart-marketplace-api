@@ -17,6 +17,26 @@ rs.service()
 			allApps = allApps.concat(apps.featured);
 			allApps = allApps.concat(apps.recent);
 
+			// Add Top Paid Apps
+			for (var i = 0 ; i < apps.topPaid.length; i++) {
+				for (var j = 0 ; j < allApps.length; j++) {
+					if (allApps[j].id !== apps.topPaid[i].id) {
+						allApps.push(apps.topPaid[i]);
+						break;
+					}
+				}
+			}
+
+			// Add Top Free Apps
+			for (var i = 0 ; i < apps.topFree.length; i++) {
+				for (var j = 0 ; j < allApps.length; j++) {
+					if (allApps[j].id !== apps.topFree[i].id) {
+						allApps.push(apps.topFree[i]);
+						break;
+					}
+				}
+			}
+
 			for (var i = 0; i < allApps.length; i ++) {
 				if (allApps[i].id === ctx.pathParameters.id) {
 					app = allApps[i];
@@ -153,7 +173,7 @@ function getApps() {
 			'image': 'http://www.logofound.com/wp-content/uploads/2016/09/business-logo-company-06.jpg',
 			'description': 'Some quick example text to build on the card title and make up the bulk of the card\'s content.',
 			'vendor': 'Company Name',
-			'trialLink': 'http://trial.ingress.dev.promart.shoot.canary.k8s-hana.ondemand.com/services/v3/web/ide-git/index.html?repository=https://github.com/dirigiblelabs/sample-v3-simple-print-env-vars.git&uri=/services/v3/js/sample-v3-simple-print-env-vars/print_env_vars.js'
+			'trialLink': 'http://trial.ingress.dev.promart.shoot.canary.k8s-hana.ondemand.com/services/v3/web/ide-git/index.html?repository=https://github.com/promart-io/applications-car-service-package.git&uri=/services/v3/web/car-service-bookings/'
 		}, {
 			'id': 'house-guard-company-name-qwerty-12345',
 			'name': 'House Guard',
