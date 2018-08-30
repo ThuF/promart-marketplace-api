@@ -101,7 +101,7 @@ function getApps() {
 			'image': 'http://www.logofound.com/wp-content/uploads/2016/09/business-logo-company-06.jpg',
 			'description': 'Some quick example text to build on the card title and make up the bulk of the card\'s content.',
 			'vendor': 'Company Name',
-			'trialLink': 'http://trial.ingress.dev.promart.shoot.canary.k8s-hana.ondemand.com/services/v3/web/ide-git/index.html?repository=https://github.com/dirigiblelabs/sample-v3-simple-print-env-vars.git&uri=/services/v3/js/sample-v3-simple-print-env-vars/print_env_vars.js'
+			'trialLink': 'http://trial.ingress.dev.promart.shoot.canary.k8s-hana.ondemand.com/services/v3/web/ide-git/index.html?repository=https://github.com/promart-io/applications-diving-shop-package.git&uri=/services/v3/web/diving-shop/'
 		}, {
 			'id': 'bookstore-company-name-qwerty-12345',
 			'name': 'Bookstore',
