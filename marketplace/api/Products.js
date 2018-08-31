@@ -5,12 +5,7 @@ var http = require('marketplace/api/http');
 rs.service()
 	.resource('')
 		.get(function(ctx, request) {
-			var queryOptions = {};
-			var parameters = request.getParameterNames();
-			for (var i = 0; i < parameters.length; i ++) {
-				queryOptions[parameters[i]] = request.getParameter(parameters[i]);
-			}
-			var entities = dao.list(queryOptions);
+			var entities = dao.list();
 			http.sendResponseOk(entities);
 		})
 	.resource('{id}')
@@ -22,5 +17,25 @@ rs.service()
 			} else {
 				http.sendResponseNotFound('Products not found');
 			}
+		})
+	.resource('featured')
+		.get(function(ctx, request, response) {
+			var entities = dao.list();
+			http.sendResponseOk(entities);
+		})
+	.resource('recent')
+		.get(function(ctx, request, response) {
+			var entities = dao.list();
+			http.sendResponseOk(entities);
+		})
+	.resource('top/free')
+		.get(function(ctx, request, response) {
+			var entities = dao.list();
+			http.sendResponseOk(entities);
+		})
+	.resource('top/paid')
+		.get(function(ctx, request, response) {
+			var entities = dao.list();
+			http.sendResponseOk(entities);
 		})
 .execute();
