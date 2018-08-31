@@ -27,7 +27,7 @@ exports.get = function(id) {
 		'type': 'BIGINT',
 		'value': entityId
 	}]);
-	return resultSet.map(mapEntity);
+	return resultSet.map(mapEntity)[0];
 };
 
 function mapEntity(entity) {
