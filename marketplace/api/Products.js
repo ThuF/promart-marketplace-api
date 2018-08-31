@@ -13,41 +13,12 @@ rs.service()
 			var entities = dao.list(queryOptions);
 			http.sendResponseOk(entities);
 		})
-	.resource('count')
-		.get(function(ctx, request) {
-			http.sendResponseOk(dao.count());
-		})
 	.resource('{id}')
 		.get(function(ctx) {
 			var id = ctx.pathParameters.id;
 			var entity = dao.get(id);
 			if (entity) {
 			    http.sendResponseOk(entity);
-			} else {
-				http.sendResponseNotFound('Products not found');
-			}
-		})
-	.resource('')
-		.post(function(ctx, request, response) {
-			var entity = request.getJSON();
-			entity.Id = dao.create(entity);
-			response.setHeader('Content-Location', '/services/v3/js/promart/api/Products.js/' + entity.Id);
-			http.sendResponseCreated(entity);
-		})
-	.resource('{id}')
-		.put(function(ctx, request) {
-			var entity = request.getJSON();
-			entity.Id = ctx.pathParameters.id;
-			dao.update(entity);
-			http.sendResponseOk(entity);
-		})
-	.resource('{id}')
-		.delete(function(ctx) {
-			var id = ctx.pathParameters.id;
-			var entity = dao.get(id);
-			if (entity) {
-				dao.delete(id);
-				http.sendResponseNoContent();
 			} else {
 				http.sendResponseNotFound('Products not found');
 			}

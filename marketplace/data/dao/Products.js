@@ -1,83 +1,29 @@
 var query = require('db/v3/query');
-var daoApi = require('db/v3/dao');
-var dao = daoApi.create({
-	'table': 'PROMART_PRODUCTS',
-	'properties': [
-		{
-			'name': 'Id',
-			'column': 'PRODUCT_ID',
-			'type': 'INTEGER',
-			'id': true,
-		}, {
-			'name': 'Name',
-			'column': 'PRODUCT_NAME',
-			'type': 'VARCHAR',
-			'required': true
-		}, {
-			'name': 'Description',
-			'column': 'PRODUCT_DESCRIPTION',
-			'type': 'VARCHAR',
-		}, {
-			'name': 'Industry',
-			'column': 'PRODUCT_INDUSTRY',
-			'type': 'INTEGER',
-			'required': true
-		}, {
-			'name': 'Category',
-			'column': 'PRODUCT_CATEGORY',
-			'type': 'INTEGER',
-			'required': true
-		}, {
-			'name': 'Vendor',
-			'column': 'PRODUCT_VENDOR',
-			'type': 'INTEGER',
-			'required': true
-		}, {
-			'name': 'Region',
-			'column': 'PRODUCT_REGION',
-			'type': 'INTEGER',
-			'required': true
-		}, {
-			'name': 'Country',
-			'column': 'PRODUCT_COUNTRY',
-			'type': 'INTEGER',
-			'required': true
-		}, {
-			'name': 'Solution',
-			'column': 'PRODUCT_SOLUTION',
-			'type': 'INTEGER',
-			'required': true
-		}, {
-			'name': 'Image',
-			'column': 'PRODUCT_IMAGE',
-			'type': 'VARCHAR',
-		}]
-});
+
+var LIST_PRODUCTS_QUERY = 'select PRODUCT_ID, PRODUCT_NAME, PRODUCT_DESCRIPTION, PRODUCT_IMAGE, VENDOR_NAME, SOLUTION_REPOSITORY, SOLUTION_URI'
+	+ ' from PROMART_PRODUCTS'
+	+ ' join PROMART_VENDORS on PRODUCT_VENDOR = VENDOR_ID'
+	+ ' join PROMART_SOLUTIONS on PRODUCT_SOLUTION = SOLUTION_ID'
+	+ ' order by PRODUCT_ID';
+
+var trialLandscape = 'http://trial.ingress.dev.promart.shoot.canary.k8s-hana.ondemand.com/services/v3/web/ide-git/index.html';
+
 exports.list = function(settings) {
-	return dao.list(settings);
+	var resultSet = query.execute(LIST_PRODUCTS_QUERY);
+	var products = resultSet.map(function(entity) {
+		return {
+			'id': entity.product_id,
+			'name': entity.product_name,
+			'image': entity.product_image,
+			'description': entity.product_description,
+			'vendor': entity.vendor_name,
+			'trialLink': trialLandscape + '?repository=' + entity.solution_repository + '&uri=' + entity.solution_uri
+		}
+	});
+	return products;
 };
 
 exports.get = function(id) {
-	return dao.find(id);
+	return null;
 };
 
-exports.create = function(entity) {
-	return dao.insert(entity);
-};
-
-exports.update = function(entity) {
-	return dao.update(entity);
-};
-
-exports.delete = function(id) {
-	dao.remove(id);
-};
-
-exports.count = function() {
-	return dao.count();
-};
-
-exports.customDataCount = function() {
-	var resultSet = query.execute("SELECT COUNT(*) AS COUNT FROM PROMART_PRODUCTS");
-	return resultSet !== null ? resultSet[0].COUNT : 0;
-};
